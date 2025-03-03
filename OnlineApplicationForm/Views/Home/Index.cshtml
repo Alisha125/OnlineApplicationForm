@@ -1,0 +1,36 @@
+﻿@model OnlineApplicationForm.ViewModels.EmployeeViewModel
+
+<h2>Index</h2>
+
+@*@Html.LabelFor(model => model.Emp_id)
+    @Html.TextBoxFor(model => model.Emp_id)*@
+@Html.LabelFor(model => model.Emp_Name)
+@Html.TextBoxFor(model => model.Emp_Name)
+
+<button type="button" onclick="SaveEmployeeDetails();">Save</button>
+
+<script>
+    function SaveEmployeeDetails()
+    {
+        alert('E1');
+        //showLoading('Processing');
+        $.ajax({
+            type: "POST",
+            Cache: false,
+
+            url: "/Home/SaveEmployeeDetails",
+            data: {
+                Emp_Name: $('#Emp_Name').val()
+            },
+
+            success: function (response)
+            {
+                $("result").text(response.message);
+            },
+            error: function (xhr, status, error)
+            {
+                $("#result").text("Error: " + error);
+            }
+        })
+    }
+</script>
